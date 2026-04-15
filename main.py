@@ -5,7 +5,7 @@ from app.utils.helpers import clear_screen
 def main():
     while True:
         clear_screen()
-        print("BRIGHTLYNC™ – ZADANIA EKSPOZYCYJNE")
+        print("EXPOSITION TRACKER – ZADANIA EKSPOZYCYJNE")
         print("=" * 70)
         print("MENU GŁÓWNE\n" + "-" * 70)
         print("1. Zaloguj się")
