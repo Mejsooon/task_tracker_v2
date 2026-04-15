@@ -1,4 +1,5 @@
-
+def clear_screen():
+    print("\n" + "=" * 60 + "\n")
 
 def multiline_read(prompt: str = ""):
     if prompt:
@@ -11,5 +12,11 @@ def multiline_read(prompt: str = ""):
         lines.append(line)
     return "\n".join(lines)
 
-def clear_screen():
-    pass
+def get_next_id(prefix: str, table: str):
+    from app.core.database import execute
+    row = execute(f"SELECT id FROM {table} ORDER BY id DESC LIMIT 1", fetch = "one")
+
+    if not row:
+        return f"{prefix}001"
+    num = int(row["id"][len(prefix):])
+    return f"{prefix}{num + 1:03d}"
