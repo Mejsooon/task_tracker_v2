@@ -58,6 +58,35 @@ def _create_task(user: User):
     print(f"\n{'✅' if ok else '❌'} {msg}")
     input("\nNaciśnij Enter...")
 
+def _view_active(user: User):
+    clear_screen()
+    print("AKTYWNE ZADANIA\n" + "-" * 70)
+
+    tasks = task_service.get_active_tasks(user.id)
+
+    if not tasks:
+        print("Brak aktywnych zadań")
+        input("\nNaciśnij Enter...")
+        return
+
+    for idx, t in enumerate(tasks, 1):
+        preview = t.task_description[:60] + ("..." if len(t.task_description) > 60 else "")
+        print(f"{idx}. [{t.id}] Trudność: {t.difficulty_level}/10")
+        print(f"   {preview}")
+
+    try:
+        choice = int(input("Wybierz zadanie (0 - powrót): ")).strip()
+        if choice == 0:
+            return
+        if not (1 <= choice <= len(tasks)):
+            raise ValueError
+    except ValueError:
+        print("\n❌ Nieprawidłowy wybór.")
+        input("\nNaciśnij Enter...")
+        return
+
+    user_choice = tasks[choice - 1] # Pierwsze zadanie ma indeks 0!
+
 
 
 
