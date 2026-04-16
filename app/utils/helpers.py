@@ -1,6 +1,7 @@
 def clear_screen():
     print("\n" + "=" * 60 + "\n")
 
+
 def multiline_read(prompt: str = ""):
     if prompt:
         print(prompt)
@@ -11,6 +12,7 @@ def multiline_read(prompt: str = ""):
             break
         lines.append(line)
     return "\n".join(lines)
+
 
 def get_next_id(prefix: str, table: str):
     from app.core.database import execute

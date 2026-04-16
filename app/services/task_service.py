@@ -35,5 +35,6 @@ def create_task(user_id: str, difficulty: str, task_target: str, task_descriptio
         reflection_questions = reflection_questions,
     )
 
+
     task_repository.save(task)
     return True, f"Zadanie {task.id} zostało utworzone."

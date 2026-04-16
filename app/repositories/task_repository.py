@@ -23,6 +23,7 @@ def _row_to_task(row: dict) -> Optional[Task]:
 def get_by_user_and_status(user: User, status: str) -> List[Task]:
     execute(f"SELECT * FROM tasks WHERE user_id= %s AND status= %s", (user.id, status), fetch="all")
 
+
 def save(task: Task) -> Task:
     execute("INSERT INTO tasks VALUES (%s, %s, %s, %s, %s, %s)",
     (task.id, task.user_id, task.difficulty_level, task.task_target, task.task_description,))
