@@ -22,3 +22,13 @@ def get_next_id(prefix: str, table: str):
         return f"{prefix}001"
     num = int(row["id"][len(prefix):])
     return f"{prefix}{num + 1:03d}"
+
+
+def _read_multiline() -> str:
+    lines = []
+    while True:
+        line = input()
+        if not line:
+            break
+        lines.append(line)
+    return "\n".join(lines)

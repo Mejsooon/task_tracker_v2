@@ -1,5 +1,5 @@
 from app.repositories import task_repository
-from app.models.models import User, Task
+from app.models.models import User, Task, Reflection
 from app.utils.helpers import get_next_id
 from typing import List
 
@@ -38,3 +38,12 @@ def create_task(user_id: str, difficulty: str, task_target: str, task_descriptio
 
     task_repository.save(task)
     return True, f"Zadanie {task.id} zostało utworzone."
+
+
+def complete_task(task: Task, answers: dict[str, str], notes: str, user_id: str) -> None:
+    reflection = Reflection(
+        task_id=task.id,
+        user_id=user_id,
+        answers=answers,
+        optional_notes=notes,
+    )

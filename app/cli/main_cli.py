@@ -1,7 +1,7 @@
 from app.models.models import User
 from app.utils.helpers import clear_screen
 from app.services import task_service
-from app.utils.helpers import multiline_read
+from app.utils.helpers import multiline_read, _read_multiline
 
 def user_panel(user: User):
     while True:
@@ -58,6 +58,7 @@ def _create_task(user: User):
     print(f"\n{'✅' if ok else '❌'} {msg}")
     input("\nNaciśnij Enter...")
 
+
 def _view_active(user: User):
     clear_screen()
     print("AKTYWNE ZADANIA\n" + "-" * 70)
@@ -87,6 +88,35 @@ def _view_active(user: User):
 
     user_choice = tasks[choice - 1] # Pierwsze zadanie ma indeks 0!
 
+    _read_task(user, user_choice) # Wywołanie funkcji do odczytywania zadania
 
+def _read_task(user: User, task):
+    clear_screen()
+    print(f"ZADANIE {task.id}\n" + "=" * 70)
+    print(f"Poziom trudności: {task.difficulty_level}/10")
+    print("\nCEL ZADANIA:\n" + "-" * 70)
+    print(task.task_target)
+    print("\nOPIS ZADANIA:\n" + "-" * 70)
+    print(task.task_description)
+    print("\n" + "=" * 70)
+    print("1. Oznacz jako wykonane i wypełnij refleksję")
+    print("2. Powrót")
 
+    if input("\nWybierz opcję: ").strip().lower() == "1":
+        _complete_task(user, task)
+
+def _complete_task(user: User, task):
+    clear_screen()
+    print(f"REFLEKSJA – ZADANIE {task.id}\n" + "=" * 70)
+
+    answers = {}
+    for idx, q in enumerate(task.reflection_questions, 1):
+        print(f"\n{idx}. {q}")
+        print("(zakończ pustą linią)")
+        answers[q] = _read_multiline()
+
+    print("\nDodatkowe notatki (opcjonalnie, zakończ pustą linią):")
+    notes = _read_multiline()
+
+    task_service.complete_task()
 
