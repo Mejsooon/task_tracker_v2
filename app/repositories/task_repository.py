@@ -21,3 +21,6 @@ def find_by_id_and_status(user_id: int, status: str):
     if rows:
         return [_row_to_task(row) for row in rows]
     return None
+
+def make_task_complete(task: Task):
+    execute("UPDATE tasks SET status = 'completed' WHERE id = %s", (task.id,))

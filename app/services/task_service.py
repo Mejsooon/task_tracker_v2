@@ -30,4 +30,4 @@ def find_completed_tasks(user_id):
 
 
 def complete_task(task: Task):
-    task.status = "completed"
+    return task_repository.make_task_complete(task)
