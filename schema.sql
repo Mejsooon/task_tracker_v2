@@ -17,6 +17,7 @@ CREATE TABLE tasks (
     user_id               VARCHAR(10)  NOT NULL,
     difficulty            TINYINT      NOT NULL CHECK (difficulty_level BETWEEN 1 AND 10),
     description           TEXT         NOT NULL,
+    additional_notes      TEXT
     status                ENUM('active','completed') NOT NULL DEFAULT 'active',
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
