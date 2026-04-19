@@ -20,4 +20,4 @@ def find_by_username(username):
 
 
 def save(user: User):
-    execute("INSERT INTO users (name, username, password) VALUES (%s, %s. %s)", (user.name, user.username, user.password))
+    execute("INSERT INTO users (name, username, password) VALUES (%s, %s, %s)", (user.name, user.username, user.password))

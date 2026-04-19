@@ -13,9 +13,9 @@ def authenticate(username: str, password: str):
 def register_user(name: str, username: str, password: str) -> tuple[bool, str]:
     user = user_repository.find_by_username(username)
     if user:
-       return False, print("❌ Ta nazwa użytkownika jest już zajęta")
+       return False, "❌ Ta nazwa użytkownika jest już zajęta"
     if not name or not username or not password:
-       return False, print("❌ Wszystkie pola są wymagane.")
+       return False, "❌ Wszystkie pola są wymagane."
 
     user = User(
         id=get_next_id("U", "users"),
