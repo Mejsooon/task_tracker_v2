@@ -1,6 +1,5 @@
 import mysql.connector
-from mysql.connector import MySQLConnection
-from mysql.connector import errorcode
+from mysql.connector import MySQLConnection, errorcode
 from config import DB_CONFIG
 import logging
 
@@ -12,13 +11,13 @@ def get_connection() -> MySQLConnection:
     return mysql.connector.connect(**DB_CONFIG)
 
 
-def execute(query: str, params: tuple = (), fetch: str = None) -> MySQLConnection:
+def execute(query: str, params: tuple = (), fetch: str = None) -> dict | list | int | None:
     conn = None
     cursor = None
 
     try:
         conn = get_connection()
-        if conn and not conn.is_connected():
+        if conn or not conn.is_connected():
             raise mysql.connector.InterfaceError("Nie udało się uzyskać połączenia z bazą danych")
 
         cursor = conn.cursor(dictionary=True)
